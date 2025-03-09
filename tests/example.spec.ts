@@ -5,8 +5,7 @@ test("has title", async ({ page }) => {
   await page.goto("https://playwright.dev/");
 
   /*
-   * ask ai to generate playwright code. Please note: code is also returned from ai()
-   * therefore there's no need to run both.
+   * ask ai to generate playwright code. 
    * useful when you have a flaky test
    **/
   // await aiSuggest(`expect page title to include "Playwright"`, { test, page });
