@@ -19,12 +19,12 @@ test("has title", async ({ page }) => {
 test("get started link", async ({ page }) => {
   await page.goto("https://playwright.dev/");
 
-  // await page.getByRole("link", { name: "Get started" }).click();
   await aiSuggest(`click "Get started" button`, { test, page });
+  await page.getByRole("link", { name: "Get started" }).click();
 
   // each ai() takes a snapshot page - a separate call is mandatory when page content updates
   await page.waitForLoadState("load");
-  // await ai(`expect header "Installation" to be visible`, { test, page });
+  await ai(`expect header "Installation" to be visible`, { test, page });
 
   // Expects page to have a heading with the name of Installation.
   // await expect(

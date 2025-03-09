@@ -19,22 +19,34 @@ import { coderSystemPrompt, runnerSystemPrompt, userPrompt } from "./prompts";
  *
  */
 export const setup = (options: SetupOptions) => {
+  const run = setupRunner(
+    Object.assign(
+      {
+        systemPrompt: runnerSystemPrompt,
+        maxPromptLength: 500_000,
+      } as Partial<SetupOptions>,
+      options
+    ),
+    createActions,
+    userPrompt
+  );
+
+  const suggest = setupRunner(
+    Object.assign(
+      {
+        systemPrompt: coderSystemPrompt,
+        maxPromptLength: 500_000,
+      } as Partial<SetupOptions>,
+      options
+    ),
+    undefined,
+    userPrompt
+  );
+
   const ai = async (
     task: string,
     { test, page }: { test?: typeof Base; page: Page }
   ) => {
-    const run = setupRunner(
-      Object.assign(
-        {
-          systemPrompt: runnerSystemPrompt,
-          maxPromptLength: 500_000,
-        } as Partial<SetupOptions>,
-        options
-      ),
-      createActions,
-      userPrompt
-    );
-
     if (test) {
       test.setTimeout(200_000);
       return await test.step("openai-playwright.run", async () => {
@@ -49,25 +61,13 @@ export const setup = (options: SetupOptions) => {
     task: string,
     { test, page }: { test?: typeof Base; page: Page }
   ) => {
-    const run = setupRunner(
-      Object.assign(
-        {
-          systemPrompt: coderSystemPrompt,
-          maxPromptLength: 500_000,
-        } as Partial<SetupOptions>,
-        options
-      ),
-      undefined,
-      userPrompt
-    );
-
     if (test) {
       test.setTimeout(200_000);
       return await test.step("openai-playwright.suggest", async () => {
-        return await run(task, { test, page });
+        return await suggest(task, { test, page });
       });
     } else {
-      return await run(task, { test, page });
+      return await suggest(task, { test, page });
     }
   };
 
