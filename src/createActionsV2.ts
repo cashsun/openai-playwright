@@ -38,6 +38,13 @@ export const createActions: CreateActions = ({ page }: { page: Page }) => {
         },
       },
     },
+    page_getTitle:{
+      fn: async () =>{
+        return await page.title()
+      },
+      name: "page_getTitle",
+      description: "Get page title text.",
+    },
     page_pressKey: {
       fn: async (args: { key: string }) => {
         const { key } = args;

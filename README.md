@@ -20,7 +20,28 @@ const options: SetupOptions = {
   apiKey: "",
 };
 
+/**
+ * SetupOptions:
+ * 
+ * timeout?: number; override test timeout in milliseconds. default 200 seconds
+ * maxPromptLength?: number; defaults to 500,000 characters ~ 100,000 tokens
+ * systemPrompt?: string; override build-in playwright system prompt with your own
+ * model?: string;
+ * ...openai.ClientOptions
+ * 
+ */
 const { ai, aiSuggest } = setup(options);
+
+const { ai, aiSuggest: aiCoder } = setup(options);
+
+// customise AI features before exporting, e.g. save generated code into a file.
+const aiSuggest = async (
+  task: string,
+  context: { test: typeof test | undefined; page: Page }
+) => {
+  const result = await aiCoder(task, context);
+  fs.writeFileSync('../genrated-code.md', result.message)
+};
 
 export { ai, aiSuggest };
 ```
@@ -48,18 +69,13 @@ test("has title", async ({ page }) => {
 test("get started link", async ({ page }) => {
   await page.goto("https://playwright.dev/");
 
-  // await page.getByRole("link", { name: "Get started" }).click();
   await ai(`click "Get started" button`, { test, page });
-
+  // await page.getByRole("link", { name: "Get started" }).click();
 
   await page.waitForLoadState("load");
   // each ai() takes a page snapshot, therefore a separate call is mandatory when page content updates
-  await ai(`expect header "Installation" to be visible`, { test, page });
+  await aiSuggest(`expect "How to install Playwright" link to be visible`, { test, page });
 
-  // the above should achieve the same as below
-  // await expect(
-  //   page.getByRole("heading", { name: "Installation" })
-  // ).toBeVisible();
 });
 
 ```

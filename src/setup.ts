@@ -1,7 +1,13 @@
 import { test as Base, Page } from "@playwright/test";
-import { SetupOptions, setup as setupRunner } from "openai-runner";
+import { setup as setupRunner } from "openai-runner";
 import { createActions } from "./createActionsV2";
 import { coderSystemPrompt, runnerSystemPrompt, userPrompt } from "./prompts";
+import { SetupOptions } from "./types/setup";
+
+type AIRunner = (
+  task: string,
+  { test, page }: { test?: typeof Base; page: Page }
+) => Promise<{ message: string }>;
 
 /**
  * Setup AI runner (runs playwright code) and AI code suggester (generate playwright code)
@@ -43,12 +49,9 @@ export const setup = (options: SetupOptions) => {
     userPrompt
   );
 
-  const ai = async (
-    task: string,
-    { test, page }: { test?: typeof Base; page: Page }
-  ) => {
+  const ai: AIRunner = async (task, { test, page }) => {
     if (test) {
-      test.setTimeout(200_000);
+      test.setTimeout(options.timeout ?? 200_000);
       return await test.step("openai-playwright.run", async () => {
         return await run(task, { test, page });
       });
@@ -57,12 +60,9 @@ export const setup = (options: SetupOptions) => {
     }
   };
 
-  const aiSuggest = async (
-    task: string,
-    { test, page }: { test?: typeof Base; page: Page }
-  ) => {
+  const aiSuggest: AIRunner = async (task, { test, page }) => {
     if (test) {
-      test.setTimeout(200_000);
+      test.setTimeout(options.timeout ?? 200_000);
       return await test.step("openai-playwright.suggest", async () => {
         return await suggest(task, { test, page });
       });
