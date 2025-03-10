@@ -16,7 +16,7 @@ test("has title", async ({ page }) => {
   // await ai(`expect page title to include "Playwright"`, { test, page });
 });
 
-test.only("get started link", async ({ page }) => {
+test("get started link", async ({ page }) => {
   await page.goto("https://playwright.dev/");
 
   await ai(`click "Get started" button`, { test, page });

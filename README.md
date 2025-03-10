@@ -2,16 +2,22 @@
 
 A Playwright automation tool supports openai-like models using [Function Calling](https://platform.openai.com/docs/guides/function-calling) API.
 
-Support Typescript out of box.
+Supports Typescript out of box.
 
 Inspired by [ZeroStep](https://github.com/zerostep-ai/zerostep) & [auto-playwright](https://github.com/lucgagan/auto-playwright)
 
-## Simple Use Case
+The driving principal of this library and included prompts is to steer AI to create select-as-seen type of CSS selectors that's more robust than selectors based on class names / attributes / test IDs
+
+For example, AI should in favour of
+`await page.locator('div:text("Get started")').click()`
+versus 
+`await page.locator('div.my-own-class').click()`
+
+## How to use
 
 ```javascript
 // ai.ts
-import { SetupOptions } from "openai-runner";
-import { setup } from "../dist/index.es.js";
+import { setup, SetupOptions } from "openai-playwright";
 
 const options: SetupOptions = {
   // a 70b+ model is strongly recommended for testing reliability
@@ -85,11 +91,11 @@ test("get started link", async ({ page }) => {
 ### using npm
 
 ```shell
-npm i openai-playwright
+npm i openai-playwright -D
 ```
 
 ### using pnpm
 
 ```shell
-pnpm add openai-playwright
+pnpm add openai-playwright -D
 ```

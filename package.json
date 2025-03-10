@@ -1,6 +1,6 @@
 {
   "name": "openai-playwright",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Playwright Automation module that supports any openai-like LLM models",
   "main": "dist/index.cjs",
   "module": "dist/index.es.js",

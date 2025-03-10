@@ -13,7 +13,7 @@ Complete the tasks specified by the user by using tools and web page snapshot pr
 - When creating CSS selectors, ensure they are unique and specific enough to select only one element from the page snapshot, even if there are multiple elements of the same type (like multiple h1 elements).
 - Avoid using generic tags like 'h1' alone. Instead, combine them with expected text content, other attributes or structural relationships to form a unique selector.
 - If user is looking for an element based on displayed text content, use Playwrite pseudo-classes in addition to find target element they are as follows:
-  - \`has-text("Home")\` matches any element containing specified text somewhere inside, possibly in a child or a descendant element.
+  - \`:has-text("Home")\` matches any element containing specified text somewhere inside, possibly in a child or a descendant element.
   - \`:text("Home")\` pseudo-class matches the smallest element containing specified text.
   - \`:text-is("Home")\` pseudo-class matches the smallest element with exact text. 
   - \`:text-matches("reg?ex", "i")\` pseudo-class matches the smallest element with text content matching the JavaScript-like regex
@@ -50,7 +50,7 @@ Generate Playwrite code in typescript to complete user specified tasks based on 
 - When creating CSS selectors, ensure they are unique and specific enough to select only one element from the page snapshot, even if there are multiple elements of the same type (like multiple h1 elements).
 - Avoid using generic tags like 'h1' alone. Instead, combine them with expected text content, other attributes or structural relationships to form a unique selector.
 - If user is looking for an element based on displayed text content, use Playwrite pseudo-classes in addition to find target element they are as follows:
-  - \`has-text("Home")\` matches any element containing specified text somewhere inside, possibly in a child or a descendant element.
+  - \`:has-text("Home")\` matches any element containing specified text somewhere inside, possibly in a child or a descendant element.
   - \`:text("Home")\` pseudo-class matches the smallest element containing specified text.
   - \`:text-is("Home")\` pseudo-class matches the smallest element with exact text. 
   - \`:text-matches("reg?ex", "i")\` pseudo-class matches the smallest element with text content matching the JavaScript-like regex

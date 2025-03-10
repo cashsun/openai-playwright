@@ -11,14 +11,14 @@ const options: SetupOptions = {
   apiKey: ""
 };
 
-const { ai, aiSuggest: aiCoder } = setup(options);
+const { ai, aiSuggest } = setup(options);
 
-const aiSuggest = async (
-  task: string,
-  context: { test: typeof test | undefined; page: Page }
-) => {
-  const result = await aiCoder(task, context);
-  fs.writeFileSync('../genrated-code.md', result.message)
-};
+// const aiSuggest = async (
+//   task: string,
+//   context: { test: typeof test | undefined; page: Page }
+// ) => {
+//   const result = await aiCoder(task, context);
+//   fs.writeFileSync('../genrated-code.md', result.message)
+// };
 
 export { ai, aiSuggest };
