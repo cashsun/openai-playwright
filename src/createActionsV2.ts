@@ -38,9 +38,9 @@ export const createActions: CreateActions = ({ page }: { page: Page }) => {
         },
       },
     },
-    page_getTitle:{
-      fn: async () =>{
-        return await page.title()
+    page_getTitle: {
+      fn: async () => {
+        return await page.title();
       },
       name: "page_getTitle",
       description: "Get page title text.",
@@ -81,8 +81,8 @@ export const createActions: CreateActions = ({ page }: { page: Page }) => {
       parse: (args: string) => {
         return z
           .object({
-            x: z.number(),
-            y: z.number(),
+            x: z.coerce.number(),
+            y: z.coerce.number(),
           })
           .parse(JSON.parse(args));
       },
@@ -725,3 +725,10 @@ export const createActions: CreateActions = ({ page }: { page: Page }) => {
     },
   };
 };
+
+export const extendActions =
+  (createMyActions: CreateActions) => (context: { page: Page }) => {
+    const origin = createActions(context);
+    const extended = createMyActions(context);
+    return { ...origin, ...extended };
+  };

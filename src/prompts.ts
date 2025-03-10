@@ -32,15 +32,15 @@ Complete the tasks specified by the user by using tools and web page snapshot pr
       enables reliable end-to-end testing for modern web apps.
     </h1>
     <div class="buttons_pzbO">
-      <a class="getStarted_Sjon" href="/docs/intro">Get started</a>
+      <a class="getStarted_Sjon title_link" href="/docs/intro">Get started</a>
     </div>
   </body>
   \`\`\`
   - Task: \`Click on "Get started"\`
   - Tool call
-    \`\`\`js
-        locator_click({ cssSelector: 'a:text("Get started")' })
-    \`\`\`
+  \`\`\`js
+      locator_click({ cssSelector: 'a.title_link:text("Get started")' })
+  \`\`\`
 `;
 
 export const coderSystemPrompt = `
